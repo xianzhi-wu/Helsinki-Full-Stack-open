@@ -12,7 +12,8 @@ dist
 dist-ssr
 *.local
 
-/public/
+public/
+/public
 /src/assets/
 
 # Editor directories and files

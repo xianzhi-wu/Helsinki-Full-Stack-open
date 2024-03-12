@@ -25,3 +25,8 @@ src/assets
 *.njsproj
 *.sln
 *.sw?
+
+.eslintrc.cjs
+package-lock.json
+package.json
+vite.config.js

@@ -28,12 +28,6 @@ const NotesApp = () => {
             setNotes(notes.concat(returnedNote))
             setNewNote('')
         })
-        .catch(error => {
-            alert(
-                `the note '${note.content}' was already deleted from server`
-            )
-            setNotes(notes.filter(n => n.id !== id))
-        })
   }
 
   const handleNoteChange = (event) => {
@@ -52,6 +46,12 @@ const NotesApp = () => {
         .update(id, changeNote)
         .then(returnedNote => {
             setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+        })
+        .catch(error => {
+            alert(
+                `the note '${note.content}' was already deleted from server`
+            )
+            setNotes(notes.filter(n => n.id !== id))
         })
   }
 

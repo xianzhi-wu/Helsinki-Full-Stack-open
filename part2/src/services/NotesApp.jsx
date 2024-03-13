@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-import Note from './components/Note'
+import Note from '../components/Note'
+import noteService from './notes'
 
-const App = () => {
+const NotesApp = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/notes')
-      .then(response => {
-        setNotes(response.data)
+    noteService
+      .getAll()
+      .then(initalNotes => {
+        setNotes(initalNotes)
       })
   }, [])
 
@@ -22,13 +22,18 @@ const App = () => {
       important: Math.random() > 0.5,
     }
   
-    axios
-    .post('http://localhost:3001/notes', noteObject)
-    .then(response => {
-        console.log(response)
-      setNotes(notes.concat(response.data))
-      setNewNote('')
-    })
+    noteService
+        .create(noteObject)
+        .then(returnedNote => {
+            setNotes(notes.concat(returnedNote))
+            setNewNote('')
+        })
+        .catch(error => {
+            alert(
+                `the note '${note.content}' was already deleted from server`
+            )
+            setNotes(notes.filter(n => n.id !== id))
+        })
   }
 
   const handleNoteChange = (event) => {
@@ -40,14 +45,14 @@ const App = () => {
     : notes.filter(note => note.important)
 
   const toggleImportanceOf = (id) => {
-    console.log('importance of ' + id + ' needs to be toggled')
-    const url = 'http://localhost:3001/notes/' + id
     const note = notes.find(n => n.id === id)
     const changeNote = {...note, important: !note.important}
 
-    axios.put(url, changeNote).then(response => {
-      setNotes(notes.map(n => n.id !== id ? n : response.data))
-    })
+    noteService
+        .update(id, changeNote)
+        .then(returnedNote => {
+            setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+        })
   }
 
   return (
@@ -78,4 +83,4 @@ const App = () => {
   )
 }
 
-export default App
+export default NotesApp

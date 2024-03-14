@@ -1,8 +1,20 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan');
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }))
+
+// Middleware to log requests
+// app.use(morgan('tiny'))
+// Define a custom token for logging request body
+morgan.token('post-data', (req, res) => {
+    if (req.method === 'POST') {
+        return JSON.stringify(req.body);
+    }
+    return '-';
+});
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'));
 
 let persons = [
     { 

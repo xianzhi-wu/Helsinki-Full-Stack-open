@@ -1,16 +1,7 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-const fs = require('fs')
-
-const filePath = 'mongodb-url'
-
-let url = ''
-try {
-    url = fs.readFileSync(filePath, 'utf-8')
-} catch (err) {
-    console.error(`Error reading file: ${err}`)
-}
-
+const url = process.env.MONGODB_URI
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
 

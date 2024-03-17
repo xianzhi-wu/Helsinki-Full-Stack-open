@@ -16,12 +16,12 @@ app.use(express.urlencoded({ extended: true }))
 // app.use(morgan('tiny'))
 // Define a custom token for logging request body
 const morgan = require('morgan')
-morgan.token('post-data', (req, res) => {
+morgan.token('post-data', (req) => {
     if (req.method === 'POST') {
         return JSON.stringify(req.body)
     }
     return '-'
-});
+})
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'))
 
@@ -56,10 +56,11 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response, next) => {
-    Person.find({}).then(persons => {
-        response.json(persons)
-    })
-    .catch(error => next(error))
+    Person.find({})
+        .then(persons => {
+            response.json(persons)
+        })
+        .catch(error => next(error))
 })
 
 app.get('/info', (request, response, next) => {
@@ -85,7 +86,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
-        .then(result => {
+        .then(() => {
             response.status(204).end()
         })
         .catch(error => next(error))
@@ -123,8 +124,8 @@ app.put('/api/updateperson/:id', (request, response, next) => {
     }
 
     Person.findByIdAndUpdate(
-        request.params.id, 
-        person, 
+        request.params.id,
+        person,
         { new: true, runValidators: true, context: 'query' })
         .then(updatedPerson => {
             response.json(updatedPerson)

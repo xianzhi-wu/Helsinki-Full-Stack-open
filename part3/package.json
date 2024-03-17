@@ -17,7 +17,10 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^1.7.0",
     "cors": "^2.8.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
     "nodemon": "^3.1.0"
   }
 }

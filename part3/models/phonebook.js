@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
 require('dotenv').config()
-url = process.env.MONGODB_URI
+const url = process.env.MONGODB_URI
 
 mongoose.connect(url)
-    .then(result => {
+    .then(() => {
         console.log('Connected to MongoDB')
     })
     .catch(error => {

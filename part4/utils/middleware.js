@@ -42,9 +42,12 @@ const tokenExtractor = (request, response, next) => {
 
 // should catch error
 const userExtractor = async (request, response, next) => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.startsWith('Bearer ')) {
-        const token = authorization.replace('Bearer ', '')
+    console.log(request.get('authorization'))
+    let token = request.get('authorization')
+    if (token) {
+        if (token.startsWith('Bearer ')) {
+            token = token.replace('Bearer ', '')
+        }
         const decodedToken = jwt.verify(token, process.env.SECRET)
         if (decodedToken && decodedToken.id) {
             const user = await User.findById(decodedToken.id)

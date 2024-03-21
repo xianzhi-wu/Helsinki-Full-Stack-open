@@ -1,8 +1,8 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 
-const jwt = require('jsonwebtoken')
-const User = require('../models/user')
+//const jwt = require('jsonwebtoken')
+//const User = require('../models/user')
 
 const mongoose = require('mongoose')
 
@@ -13,7 +13,7 @@ blogsRouter.get('/', async (request, response) => {
     response.json(blogs)
 })
 
-blogsRouter.post('/', async (request, response) => {
+blogsRouter.post('/', async (request, response, next) => {
     //const decodedToken = jwt.verify(request.token, process.env.SECRET)
     const user = request.user
     if (!user.id) {
@@ -58,10 +58,11 @@ blogsRouter.post('/', async (request, response) => {
             session.endSession()
         }
         response.status(500).json({ error: error.message })
+        next(error)
     }
 })
 
-blogsRouter.delete('/:id', async (request, response) => {
+blogsRouter.delete('/:id', async (request, response, next) => {
     const user = request.user
     if (!user.id) {
         return response.status(401).json({ error: 'invalid token' })
@@ -101,6 +102,27 @@ blogsRouter.delete('/:id', async (request, response) => {
             await session.abortTransaction()
             session.endSession()
         }
+        next(error)
+        response.status(500).json({ error: error.message })
+    }
+})
+
+blogsRouter.patch('/like/:id', async (request, response, next) => {
+    try {
+        const updatedBlog = await Blog
+            .findByIdAndUpdate(
+                request.params.id,
+                { $inc: { likes: 1 } },
+                { new: true}
+            )
+
+        if (!updatedBlog) {
+            return response.status(404).json({ error: 'Blog not found.' })
+        }
+
+        response.json(updatedBlog)
+    } catch(error) {
+        next(error)
         response.status(500).json({ error: error.message })
     }
 })

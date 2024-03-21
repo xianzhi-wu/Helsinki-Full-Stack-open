@@ -16,11 +16,9 @@ const Login = ({ setUser }) => {
       })
       window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
       setUser(user)
-      console.log(user)
     } catch (error) {
       
     }
-
   } 
 
   return (
@@ -32,7 +30,7 @@ const Login = ({ setUser }) => {
             <input
             type="text"
             value={username}
-            name="Username"
+            name="username"
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
@@ -41,7 +39,7 @@ const Login = ({ setUser }) => {
             <input
             type="password"
             value={password}
-            name="Password"
+            name="password"
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>

@@ -1,5 +1,6 @@
-// NotificationContext.js
-import React, { createContext, useContext, useReducer, useEffect } from 'react'
+import PropTypes from 'prop-types'
+
+import { createContext, useContext, useReducer, useEffect } from 'react'
 
 const initialState = {
   message: ''
@@ -30,7 +31,7 @@ export const NotificationProvider = ({ children }) => {
     if (state.message) {
       timeoutId = setTimeout(() => {
         clearNotification()
-      }, state.duration || 5000) // Default duration: 5 seconds
+      }, state.duration || 5000)
     }
     return () => clearTimeout(timeoutId)
   }, [state.message, state.duration])
@@ -46,4 +47,8 @@ export const NotificationProvider = ({ children }) => {
   )
 }
 
-export const useNotification = () => useContext(NotificationContext)
+NotificationProvider.propTypes = {
+  children: PropTypes.node.isRequired
+}
+
+export default NotificationContext

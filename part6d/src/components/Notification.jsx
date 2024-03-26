@@ -1,10 +1,10 @@
-import { useNotification } from '../reducers/notificationReducer'
+import NotificationContext from '../reducers/notificationReducer'
+
+import { useContext } from 'react'
 
 const Notification = () => {
 
-  const { state } = useNotification()
-
-  console.log(state)
+  const { state } = useContext(NotificationContext)
 
   const style = {
     border: 'solid',

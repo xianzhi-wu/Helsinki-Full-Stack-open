@@ -16,7 +16,7 @@ const unknownEndpoint = (request, response) => {
 }
 
 const errorHandler = (error, request, response, next) => {
-    logger.error(error.msg)
+    logger.error(error.message)
 
     if (error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id' })
@@ -42,7 +42,7 @@ const tokenExtractor = (request, response, next) => {
 
 // should catch error
 const userExtractor = async (request, response, next) => {
-    console.log(request.get('authorization'))
+    //console.log(request.get('authorization'))
     let token = request.get('authorization')
     if (token) {
         if (token.startsWith('Bearer ')) {

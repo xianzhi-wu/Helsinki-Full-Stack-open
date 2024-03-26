@@ -7,6 +7,7 @@ const Blog = require('../models/blog')
 const mongoose = require('mongoose')
 
 blogsRouter.get('/', async (request, response) => {
+    console.log(request.ip)
     const blogs = await Blog
         .find({})
         .populate('user', { username: 1, id: 1 })

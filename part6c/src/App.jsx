@@ -4,6 +4,7 @@ import Filter from './components/Filter'
 import Notification from './components/Notification'
 
 import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 import { initializeAnecdotes } from './reducers/anecdoteReducer'
 
@@ -11,7 +12,9 @@ import { initializeAnecdotes } from './reducers/anecdoteReducer'
 const App = () => {
   const dispatch = useDispatch()
 
-  dispatch(initializeAnecdotes())
+  useEffect(() => {
+    dispatch(initializeAnecdotes())
+  }, [dispatch])
   
   return (
     <div>

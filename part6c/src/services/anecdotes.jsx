@@ -27,9 +27,7 @@ const vote = async (id) => {
     const votes = response.data['votes']
     const newVotes = votes + 1
     const voted  = await axios.patch(`${baseUrl}/${id}`, { ['votes']: newVotes })
-    console.log(voted)
     return voted
-    
 }
 
 export default { 

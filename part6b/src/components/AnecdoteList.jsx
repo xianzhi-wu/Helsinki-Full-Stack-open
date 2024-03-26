@@ -1,14 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { useMemo } from 'react'
+
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector(({anecdotes, filter}) => {
-        if (filter === 'ALL' || filter.trim() === '') {
-            return anecdotes.slice().sort((a, b) => b.votes - a.votes)
+    const anecdotes = useSelector(state => state.anecdotes)
+    const keyword = useSelector(state => state.filter)
+
+    const visibleAnecdotes = useMemo(() => {
+        console.log(anecdotes)
+        if (keyword.trim() === '') {
+          return anecdotes.slice().sort((a, b) => b.votes - a.votes)
         }
-        return anecdotes.filter(anecdote => anecdote.content.includes(filter))
-    })
+        return anecdotes.filter(anecdote => anecdote.content.includes(keyword))
+      }, [anecdotes, keyword])
+
     const dispatch = useDispatch()
 
     const vote = (id, content) => {
@@ -20,7 +27,7 @@ const AnecdoteList = () => {
     return (
         <>
             <h2>Anecdotes</h2>
-            {anecdotes.map(anecdote =>
+            {visibleAnecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                 <div>
                     {anecdote.content}

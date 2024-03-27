@@ -1,6 +1,7 @@
 <h1><a href="https://fullstackopen.com/en/" target="_blank">Deep Dive Into Modern Web Development</a></h1>
 <h3>Full Stack open, by University of Helsinki</h3>
 
+<div>Solutions for the exercises</div>
 <br>
 Note:
 <br>1, Skip the part 3b Deploying app to internet

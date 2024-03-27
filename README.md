@@ -1,7 +1,9 @@
+<div>Solutions for the exercises of this course:</div>
 <h1><a href="https://fullstackopen.com/en/" target="_blank">Deep Dive Into Modern Web Development</a></h1>
 <h3>Full Stack open, by University of Helsinki</h3>
 
-<div>Solutions for the exercises</div>
+<div>All the exercises are completed by myself</div>
+
 <br>
 Note:
 <br>1, Skip the part 3b Deploying app to internet

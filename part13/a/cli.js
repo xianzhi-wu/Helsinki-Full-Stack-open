@@ -47,23 +47,23 @@ displayBlogs()
 
 app.get('/api/blogs', async (req, res) => {
     try {
-        const notes = await Blog.findAll()
-        res.json(notes)
+        const blogs = await Blog.findAll()
+        res.json(blogs)
     } catch (error) {
-        console.error('Error deleting blog:', error)
+        console.error('Error getting blogs:', error)
     }
 })
 
 app.get('/api/blogs/:id', async (req, res) => {
     try {
-        const note = await Blog.findByPk(req.params.id)
-        if (note) {
-            res.json(note)
+        const blog = await Blog.findByPk(req.params.id)
+        if (blog) {
+            res.json(blog)
         } else {
             res.status(404).end()
         }
     } catch (error) {
-        console.error('Error deleting blog:', error)
+        console.error('Error getting blog:', error)
     }
 })
 

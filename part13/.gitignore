@@ -1,3 +1,2 @@
 .env
-a/node_modules
-b/node_modules
+node_modules

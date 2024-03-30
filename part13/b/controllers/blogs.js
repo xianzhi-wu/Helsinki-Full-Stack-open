@@ -53,7 +53,6 @@ router.put('/like/:id', blogFinder, async (req, res, next) => {
             req.blog.likes += 1
             await req.blog.save()
             res.json({likes: req.blog.likes})
-            console.log('111')
         } else {
             res.status(404).end()
         }

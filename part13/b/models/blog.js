@@ -10,19 +10,24 @@ Blog.init({
         primaryKey: true,
         autoIncrement: true
     },
-    author: DataTypes.STRING,
+    // author: DataTypes.STRING,
     title: {
         type: DataTypes.STRING,
         allowNull: false
     },
     url: {
-      type: DataTypes.STRING,
-      allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false
     },
     likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' }
+    }
 }, { 
     sequelize, 
     timestamps: false,

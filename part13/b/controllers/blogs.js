@@ -77,21 +77,21 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-/*
 router.get('/authors', async (req, res, next) => {
     try {
         const authors = await Blog.findAll({
             attributes: [
-                //[sequelize.literal('author.name'), 'author'],
+                [sequelize.col('author.name'), 'author'],
                 [sequelize.fn('COUNT', sequelize.col('blogs.id')), 'articles'],
                 [sequelize.fn('SUM', sequelize.col('blogs.likes')), 'likes']
             ],
             include: [{
                 model: User,
-                attributes: ['name'],
+                attributes: [],
                 as: 'author'
             }],
-            group: 'author.id'
+            group: 'author.id',
+            raw: true // Return raw data instead of Sequelize model instances
         })
 
         res.json(authors);
@@ -99,8 +99,9 @@ router.get('/authors', async (req, res, next) => {
         console.error(error);
         next(error);
     }
-})*/
+})
 
+/*
 router.get('/authors', async (req, res, next) => {
     try {
         const authors = await sequelize.query(
@@ -119,6 +120,7 @@ router.get('/authors', async (req, res, next) => {
         next(error);
     }
 })
+*/
 
 router.get('/:id', blogFinder, async (req, res, next) => {
     try {

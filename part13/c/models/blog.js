@@ -23,21 +23,27 @@ Blog.init({
         type: DataTypes.INTEGER,
         defaultValue: 0
     },
-    user_id: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'users', key: 'id' },
-        // Disable the automatic generation of camelCase version fields 'userId'
-        // Specify the field name explicitly
-        field: 'user_id'
+        references: { model: 'users', key: 'id' }
     },
-    created_at: {
+    createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     },
-    updated_at: {
+    updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
+    },
+    yearWritten: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 1991,
+            max: new Date().getFullYear()
+        },
+        defaultValue: new Date().getFullYear()
     }
 }, { 
     sequelize,

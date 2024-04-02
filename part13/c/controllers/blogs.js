@@ -11,7 +11,7 @@ router.post('/', userExtractor, async (req, res, next) => {
     try {
         const user = req.user
         console.log(user.userId)
-        const blog = await Blog.create({...req.body, user_id: user.id})
+        const blog = await Blog.create({...req.body, userId: user.id})
         res.json({blog: blog})
     } catch(err) {
         next(err)
@@ -59,9 +59,9 @@ router.get('/', async (req, res, next) => {
                 'title',
                 'url',
                 'likes',
-                'created_at',
-                'updated_at',
-                'year_written',
+                'createdAt',
+                'updatedAt',
+                'yearWritten',
                 [sequelize.col('author.name'), 'author']
             ],
             include: {

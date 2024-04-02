@@ -15,6 +15,6 @@ module.exports = {
     },
 
     down: async ({ context: queryInterface })  => {
-            await queryInterface.removeColumn('blogs', 'year_written');
+        await queryInterface.removeColumn('blogs', 'year_written');
     }
 }

@@ -21,19 +21,19 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    created_at: {
+    createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     },
-    updated_at: {
+    updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     }
 }, {
     sequelize,
-    underscored: true,
     timestamps: false,
-    modelName: 'users'
+    underscored: true,
+    modelName: 'users',
 })
 
 module.exports = User

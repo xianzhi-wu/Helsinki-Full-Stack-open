@@ -1,42 +1,37 @@
 const router = require('express').Router()
 require('express-async-errors')
-const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
 
 const { Blog, User } = require('../models') 
-const { SECRET } = require('../util/config')
 const { sequelize } = require('../util/db')
 
-const tokenExtractor = (req, res, next) => {
-    const authorization = req.get('authorization')
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-      try {
-            req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
-            console.log(req.decodedToken)
-      } catch{
-            return res.status(401).json({ error: 'token invalid' })
-      }
-    } else {
-        return res.status(401).json({ error: 'token missing' })
-    }
-    next()
-}
+const { userExtractor } = require('../util/middleware')
 
-router.post('/', tokenExtractor, async (req, res) => {
+router.post('/', userExtractor, async (req, res, next) => {
     try {
-      const user = await User.findByPk(req.decodedToken.id)
-      const blog = await Blog.create({...req.body, user_id: user.id})
-      res.json(blog)
-    } catch(error) {
-      return res.status(400).json({ error })
+        const user = req.user
+        console.log(user.userId)
+        const blog = await Blog.create({...req.body, user_id: user.id})
+        res.json({blog: blog})
+    } catch(err) {
+        next(err)
     }
 })
 
 const blogFinder = async (req, res, next) => {
-    if (req.params.id) {
-        req.blog = await Blog.findByPk(req.params.id)
+    try {
+        if (req.params.id) {
+            const blog = await Blog.findByPk(req.params.id)
+            if (blog) {
+                req.blog = blog
+            } else {
+                return res.status(404).json({ message: 'Blog not found' })
+            }
+        }
+        next()
+    } catch (err) {
+        next(err)
     }
-    next()
 }
 
 router.get('/', async (req, res, next) => {
@@ -78,9 +73,12 @@ router.get('/', async (req, res, next) => {
             order: [['likes', 'DESC']],
             raw: true 
         })
-        res.json(blogs)
+        if (blogs) {
+            res.json({blogs: blogs})
+        } else {
+            res.status(404).json({ message: 'Blogs not found' })
+        }
     } catch (error) {
-        console.error(error)
         next(error)
     }
 })
@@ -101,11 +99,14 @@ router.get('/authors', async (req, res, next) => {
             group: 'author.id',
             raw: true // Return raw data instead of Sequelize model instances
         })
-
-        res.json(authors);
-    } catch (error) {
-        console.error(error);
-        next(error);
+        
+        if (authors) {
+            res.json({authors: authors})
+        } else {
+            res.status(404).json({ message: 'Authors not found' })
+        }
+    } catch (err) {
+        next(err)
     }
 })
 
@@ -123,54 +124,36 @@ router.get('/authors', async (req, res, next) => {
         )        
 
         res.json(authors);
-    } catch (error) {
-        console.error(error);
-        next(error);
+    } catch (err) {
+        next(err)
     }
 })
 */
 
 router.get('/:id', blogFinder, async (req, res, next) => {
     try {
-        if (req.blog) {
-            res.json(req.blog)
-        } else {
-            res.status(404).end()
-        }
-    } catch (error) {
-        console.error(error)
-        next(error)
+        res.json({blog: req.blog})
+    } catch (err) {
+        next(err)
     }
 })
 
 router.delete('/:id', blogFinder, async (req, res, next) => {
     try {
-        if (req.blog) {
-            await req.blog.destroy()
-            res.status(204).end()
-            // console.log(`Blog entry with ID ${req.blog.id} has been deleted successfully.`)
-        } else {
-            res.status(404).end()
-            // console.log(`No blog entry found with ID ${req.blog.id}.`)
-        }
-    } catch (error) {
-        console.error(error)
-        next(error)
+        await req.blog.destroy()
+        res.json({ message: 'Blog deleted successfully' })
+    } catch (err) {
+        next(err)
     }
 })
 
 router.put('/like/:id', blogFinder, async (req, res, next) => {
     try {
-        if (req.blog) {
-            req.blog.likes += 1
-            await req.blog.save()
-            res.json({likes: req.blog.likes})
-        } else {
-            res.status(404).end()
-        }
-    } catch (error) {
-        console.error(error)
-        next(error)
+        req.blog.likes += 1
+        await req.blog.save()
+        res.json({likes: req.blog.likes})
+    } catch (err) {
+        next(err)
     }
 })
 

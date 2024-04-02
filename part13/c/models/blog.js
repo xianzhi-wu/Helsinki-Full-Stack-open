@@ -29,7 +29,7 @@ Blog.init({
         references: { model: 'users', key: 'id' },
         // Disable the automatic generation of camelCase version fields 'userId'
         // Specify the field name explicitly
-        field: 'user_id' 
+        field: 'user_id'
     },
     created_at: {
         type: DataTypes.DATE,

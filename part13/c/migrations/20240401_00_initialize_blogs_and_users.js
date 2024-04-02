@@ -41,7 +41,8 @@ module.exports = {
                 allowNull: false,
                 validate: {
                     isEmail: true
-                }
+                },
+                unique: true
             },
             name: {
                 type: DataTypes.STRING,
@@ -49,7 +50,7 @@ module.exports = {
             },
             created_at: {
                 type: DataTypes.DATE,
-                defaultValue: DataTypes.NOW
+                defaultValue:  DataTypes.NOW
             },
             updated_at: {
                 type: DataTypes.DATE,

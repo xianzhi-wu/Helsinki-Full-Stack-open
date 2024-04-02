@@ -12,10 +12,10 @@ const loginRouter = require('./controllers/login')
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Mount the router at '/api/blogs' endpoint
-app.use('/api/blogs', blogsRouter)
+// Mount the router at '/api/users' endpoint
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/blogs', blogsRouter)
 
 const start = async () => {
     await connectToDatabase()

@@ -9,7 +9,6 @@ const { sequelize } = require('../util/db')
 
 const tokenExtractor = (req, res, next) => {
     const authorization = req.get('authorization')
-    console.log(authorization)
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
       try {
             req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
@@ -26,8 +25,7 @@ const tokenExtractor = (req, res, next) => {
 router.post('/', tokenExtractor, async (req, res) => {
     try {
       const user = await User.findByPk(req.decodedToken.id)
-      // const blog = await Blog.create({...req.body, userId: user.id, author: user.name})
-      const blog = await Blog.create({...req.body, userId: user.id})
+      const blog = await Blog.create({...req.body, user_id: user.id})
       res.json(blog)
     } catch(error) {
       return res.status(400).json({ error })
@@ -61,14 +59,24 @@ router.get('/', async (req, res, next) => {
         }
 
         const blogs = await Blog.findAll({
-            attributes: { exclude: ['userId'] },
+            attributes: [
+                'id',
+                'title',
+                'url',
+                'likes',
+                'created_at',
+                'updated_at',
+                'year_written',
+                [sequelize.col('author.name'), 'author']
+            ],
             include: {
                 model: User,
-                attributes: ['name'],
+                attributes: [],
                 as: 'author'
             },
             where,
-            order: [['likes', 'DESC']]
+            order: [['likes', 'DESC']],
+            raw: true 
         })
         res.json(blogs)
     } catch (error) {
@@ -107,7 +115,7 @@ router.get('/authors', async (req, res, next) => {
         const authors = await sequelize.query(
             `SELECT COUNT("blogs"."id") as articles, SUM("blogs"."likes") as likes, "users"."name" as author ` +
             `FROM "blogs" ` +
-            `INNER JOIN "users" ON "blogs"."userId" = "users"."id" ` +
+            `INNER JOIN "users" ON "blogs"."user_id" = "users"."id" ` +
             `GROUP BY "users"."id"`,
             {
                 type: sequelize.QueryTypes.SELECT

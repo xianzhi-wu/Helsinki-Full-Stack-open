@@ -37,8 +37,9 @@ Blog.init({
         defaultValue: DataTypes.NOW
     }
 }, { 
-    sequelize, 
-    timestamps: true,
+    sequelize,
+    underscored: true, 
+    timestamps: false,
     modelName: 'blogs'
 })
 

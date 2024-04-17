@@ -1,157 +1,75 @@
-<!-----
-
-You have some errors, warnings, or alerts. If you are using reckless mode, turn it off to see inline alerts.
-* ERRORs: 0
-* WARNINGs: 0
-* ALERTS: 1
-
-Conversion time: 2.175 seconds.
-
-
-Using this Markdown file:
-
-1. Paste this output into your source file.
-2. See the notes and action items below regarding this conversion run.
-3. Check the rendered output (headings, lists, code blocks, tables) for proper
-   formatting and use a linkchecker before you publish this page.
-
-Conversion notes:
-
-* Docs to Markdown version 1.0β35
-* Wed Apr 17 2024 15:26:47 GMT-0700 (PDT)
-* Source doc: Learning Notes
-* Tables are currently converted to HTML tables.
-* This document has images: check for >>>>>  gd2md-html alert:  inline image link in generated source and store images to your server. NOTE: Images in exported zip file from Google Docs may not appear in  the same order as they do in your doc. Please check the images!
-
-
-WARNING:
-You have 10 H1 headings. You may want to use the "H1 -> H2" option to demote all headings by one level.
-
------>
-
-
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 1; ALERTS: 1.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
-
 # **Deep Dive Into Modern Web Development**
-
-
 ## Full Stack open
 
-
 # Part 1 Intro to React
-
-
-
-1. [var, let and const - ES6 JavaScript Features](https://youtu.be/sjyJBL5fkp8)
-
-The [var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var) statement declares function-scoped or globally-scoped variables, optionally initialising each to a value.
-
+## 1. [var, let and const - ES6 JavaScript Features](https://youtu.be/sjyJBL5fkp8)
+The [var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var) statement declares function-scoped or globally-scoped variables, optionally initialising each to a value.\
 The [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) declaration declares re-assignable, block-scoped local variables, optionally initialising each to a value.
 
 Compared with [var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var), [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) declarations have the following **differences**:
-
-
-
 * let declarations are scoped to blocks as well as functions.
 * let declarations can only be accessed after the place of declaration is reached (see [temporal dead zone](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz)). For this reason, let declarations are commonly regarded as [non-hoisted](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting).
 * let declarations do not create properties on [globalThis](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis) when declared at the top level of a script.
 * let declarations cannot be [redeclared](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#redeclarations) by any other declaration in the same scope.
 * let begins [declarations, not statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements#difference_between_statements_and_declarations). That means you cannot use a lone let declaration as the body of a block (which makes sense, since there's no way to access the variable).
-
+  
+```ts
 if (true) let a = 1; // SyntaxError: Lexical declaration cannot appear in a single-statement context
+```
 
-The [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) declaration declares block-scoped local variables. The value of a constant can't be changed through reassignment using the [assignment operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment), but if a constant is an [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects), its properties can be added, updated, or removed.
+The [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) declaration declares block-scoped local variables. The value of a constant can't be changed through reassignment using the [assignment operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment), but if a constant is an [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#objects), its properties can be added, updated, or removed. 
 
 The [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) declaration is very **similar** to [let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let):
-
-
 
 * const declarations are scoped to blocks as well as functions.
 * const declarations can only be accessed after the place of declaration is reached (see [temporal dead zone](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz)). For this reason, const declarations are commonly regarded as [non-hoisted](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting).
 * const declarations do not create properties on [globalThis](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis) when declared at the top level of a script.
 * const declarations cannot be [redeclared](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#redeclarations) by any other declaration in the same scope.
 * const begins [declarations, not statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements#difference_between_statements_and_declarations). That means you cannot use a lone const declaration as the body of a block (which makes sense, since there's no way to access the variable).
-
+  
+```ts
 if (true) const a = 1; // SyntaxError: Lexical declaration cannot appear in a single-statement context
+```
 
-
-
-2. Map, filter, reduce
-
-
+## 2. Map, filter, reduce
 ### 2.1. [JavaScript Array map()](https://www.w3schools.com/jsref/jsref_map.asp)
-
-
-
 * map() creates a new array from calling a function for every array element.
 * map() does not execute the function for empty elements.
 * map() does not change the original array.
-
-
 ### 2.2. [JavaScript Array filter()](https://www.w3schools.com/jsref/jsref_filter.asp)
-
-
-
 * The filter() method creates a new array filled with (storing) elements that pass a test (condition) provided by a function.
 * The filter() method does not execute the function for empty elements.
 * The filter() method does not change the original array.
-
-
 ### 2.3. [JavaScript Array reduce()](https://www.w3schools.com/jsref/jsref_reduce.asp)
-
-
-
 * The reduce() method executes a reducer function for array elements.
 * The reduce() method returns a single value: the function's accumulated result.
 * The reduce() method does not execute the function for empty array elements.
 * The reduce() method does not change the original array.
 
-**Note: **At the first callback, there is no return value from the previous callback.
-
+Note: At the first callback, there is no return value from the previous callback.
 Normally, array element 0 is used as initial value, and the iteration starts from array element 1.
-
 If an initial value is supplied, this is used, and the iteration starts from array element 0.
 
+```ts
 const numbers = [15.5, 2.3, 1.1, 4.7];
 
 console.log(numbers.reduce(getSum, 0)) // 0, 16, 18, 19, 14. Outputs 24
-
 console.log(numbers.reduce(getSum)) // 15.5, 17.5, 18.5, 23.5. Outputs 23.5
 
 function getSum(total, num) {
-
      console.log(total)
-
      return total + Math.round(num);
-
 }
+```
 
-
-
-3. Destructuring
-
+## 3. Destructuring
 const t = [1, 2, 3, 4, 5]
-
 const [first, second, …rest]
 
-
-
-4. What is [this](https://www.w3schools.com/js/js_this.asp)?
-
+## 4. What is [this](https://www.w3schools.com/js/js_this.asp)?
 In JavaScript, the ‘this’ keyword refers to an object.
-
 Which object depends on how this is being invoked (used or called).
-
 The this keyword refers to different objects depending on how it is used:
-
-
 <table>
   <tr>
    <td>
@@ -209,145 +127,111 @@ The this keyword refers to different objects depending on how it is used:
   </tr>
 </table>
 
-
 If you want to gain a better understanding of how this works in JavaScript, the Internet is full of material about the topic, e.g. the screencast series [Understand JavaScript's this Keyword in Depth](https://egghead.io/courses/understand-javascript-s-this-keyword-in-depth) by [egghead.io](https://egghead.io/) is highly recommended!
 
-
-
-5. call, apply, bind
-
+## 5. call, apply, bind
 In JavaScript all functions are object methods.
-
-
 ### 5.1. [call](https://www.w3schools.com/js/js_function_call.asp) 
-
 With the call() method, you can write a method that can be used on different objects.
-
 With call(), an object can use a method belonging to another object.
 
+```ts
 const person = {
-
-  fullName: function() {
-
-    return this.firstName + " " + this.lastName;
-
-   }
-
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
 }
 
 const person1 = {
-
-  firstName:"John",
-
-  lastName: "Doe"
-
+    firstName:"John",
+    lastName: "Doe"
 }
 
 // This will return "John Doe":
-
 person.fullName.call(person1);
+```
 
 The call() method can accept arguments:
 
+```ts
 const person = {
-
- fullName: function(city, country) {
-
-    return this.firstName + " " + this.lastName + "," + city + "," + country;
-
-  }
-
+    fullName: function(city, country) {
+        return this.firstName + " " + this.lastName + "," + city + "," + country;
+    }
 }
 
 const person1 = {
-
-  firstName:"John",
-
-  lastName: "Doe"
-
+    firstName:"John",
+    lastName: "Doe"
 }
 
 person.fullName.call(person1, "Oslo", "Norway")
-
 // Outputs John Doe,Oslo,Norway
-
+```
 
 ### 5.2. [apply](https://www.w3schools.com/js/js_function_apply.asp) 
 
 The apply() method is similar to the call() method. 
-
 The difference is:
-
 The call() method takes arguments separately.
-
 The apply() method takes arguments as an array.
 
+```ts
 person.fullName.apply(person1, ["Oslo", "Norway"]);
+```
 
-
-## **Simulate a Max Method on Arrays**
-
+#### *Simulate a Max Method on Arrays*
 You can find the largest number (in a list of numbers) using the Math.max() method:
 
+```ts
 Math.max(1,2,3);  // Will return 3
+```
 
 Since JavaScript arrays do not have a max() method, you can apply the Math.max() method instead.
 
+```ts
 Math.max.apply(null, [1,2,3]); // Will also return 3
+```
 
 The first argument (null) does not matter: 
 
+```ts
 Math.max.apply(Math, [1,2,3]); // Will also return 3
-
 Math.max.apply(" ", [1,2,3]); // Will also return 3
-
 Math.max.apply(0, [1,2,3]); // Will also return 3
-
+```
 
 ### 5.3. [bind](https://www.w3schools.com/js/js_function_bind.asp) 
-
-
 #### 5.3.1 Function Borrowing
-
 With the bind() method, an object can borrow a method from another object.
-
 The member object borrows the fullname method from the person object:
 
+```ts
 const person = {
-
-  firstName:"John",
-
-  lastName: "Doe",
-
-  fullName: function() {
-
-    return this.firstName + " " + this.lastName;
-
-  }
-
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
 }
 
 const member = {
-
-  firstName:"Hege",
-
-  lastName: "Nilsen",
-
+    firstName:"Hege",
+    lastName: "Nilsen",
 }
 
 let fullName = person.fullName.bind(member);
-
 fullName(); // Outputs: Hege Nilsen
-
+```
 
 #### 5.3.2 Preserving this
 
+```ts
 person.display() // Outputs John Doe
+```
 
 Sometimes the bind() method has to be used to prevent losing this.
-
 When a function is used as a callback, this is lost.
-
 setTimeout(person.display, 3000); // Outputs undefined undefined
 
 The bind() method solves this problem. 

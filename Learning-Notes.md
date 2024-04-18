@@ -615,7 +615,12 @@ SQL injection is a code injection technique that might destroy your database.\
 SQL injection is one of the most common web hacking techniques.\
 SQL injection is the placement of malicious code in SQL statements, via web page input.
 
-**SQL Injection Based on ""="" is Always True** \
+**SQL Injection Based on ""="" is Always True** 
+
+```ts
+SELECT UserId, Name, Password FROM Users WHERE UserId = 105 or 1=1;
+```
+
 **SQL Injection Based on Batched SQL Statements**
 
 ```ts

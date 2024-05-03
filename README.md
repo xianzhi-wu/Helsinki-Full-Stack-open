@@ -1,5 +1,5 @@
 Solutions for the exercises of this course:
-# [Deep Dive Into Modern Web Development](https://fullstackopen.com/en/)
+# [<ins>Deep Dive Into Modern Web Development</ins>](https://fullstackopen.com/en/)
 ### Full Stack open, by University of Helsinki
 
 &nbsp;&nbsp;
